@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Popup detection demonstration</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Popup detection demonstration</h1>
+    <h2>Will be there any popup?</h2>
+
+    <script language="javascript" type="text/javascript">
+        lz = "http://ocio.leadzu.com/inter_request.php?m=1ISKSITE86043X3&a=&popup=1&lgid=" + ((new Date()).getTime() % 2147483648) + Math.random();
+        document.write("<scr" + "ipt language=javascript type=text/javascript src=" + lz + "></scr" + "ipt>");
+    </script>
+</body>
+
+</html>

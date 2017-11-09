@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Auto-redirection detection demonstration</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Auto-redirection detection demonstration</h1>
+    <h2>Will be there an auto-redirection?</h2>
+
+    <script language="javascript" type="text/javascript">
+        lz = "http://ocio.leadzu.com/inter_request.php?m=1ISKSITE86043X2&a=&direct=1&lgid=" + ((new Date()).getTime() % 2147483648) + Math.random();
+        document.write("<scr" + "ipt language=javascript type=text/javascript src=" + lz + "></scr" + "ipt>");
+    </script>
+</body>
+
+</html>
