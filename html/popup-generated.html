@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Popup detection demonstration</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Popup detection demonstration</h1>
+    <h2>Will be there any popup?</h2>
+
+    <script>
+        var ___url = "//ocio.leadzu.com/?m=1ISKSITE86043X3&d=.localhost"; var ___ttl = 1; window.addEventListener('load', initialisePopUp, false);
+        function initialisePopUp() {
+            if (!checkCookie('overlay_popup')) {
+                var overlay = document.createElement("div"); overlay.id = "___overlay"; overlay.style.height = "100%"; overlay.style.left = "0"; overlay.style.position = "fixed"; overlay.style.top = "0"; overlay.style.width = "100%"; overlay.style.zIndex = "1000"; document.body.appendChild(overlay); document.getElementById("___overlay").addEventListener("click", popUpClickListener, false); setCookie("overlay_popup", 1, ___ttl);
+            }
+        }
+        function popUpClickListener(e) {
+            e.preventDefault(); e.stopPropagation(); e.target.remove(); jsPopUp(___url, { 'ttl': ___ttl });
+        }
+        function setCookie(name, value, ttl) {
+            ttl = (ttl * 1000); var now = new Date(); document.cookie = '__' + name + '=1;expires=' + new Date(now.setTime(now.getTime() + ttl)).toGMTString();
+        }
+        function checkCookie(name) {
+            return (document.cookie.indexOf('__' + name + '=') !== -1);
+        }
+        function jsPopUp(sUrl, sConfig) {
+            var sConfig = sConfig || {}; var sTtl = (sConfig.ttl || 3600);
+            function popup(sUrl) {
+                if (checkCookie('popup')) { return false; } var w = window; setCookie('popup', 1, sTtl); newwindow = w.open(sUrl, ''); if (w.focus) { newwindow.focus(); }
+            }
+            if (!checkCookie('popup')) popup(sUrl);
+        }
+    </script>
+</body>
+
+</html>
