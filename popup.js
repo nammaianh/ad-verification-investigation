@@ -71,6 +71,7 @@ puppeteer.launch(browserOptions).then(async newBrowser => {
             // Retry the previous step with mobile emulation and TAPping instead of CLICKing.
             console.log('> Start verification with mobile-emulation browser');
             await page.emulate(iPhone);
+            await page.reload();
             await page.tap('body');
             console.log('> Tap on the center of <body>');
             await page.waitFor(WAIT_FOR_POPUP_TIMEOUT);

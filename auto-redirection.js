@@ -85,6 +85,7 @@ puppeteer.launch(browserOptions).then(async newBrowser => {
             try {
                 console.log('> Start verification with mobile-emulation browser');
                 await page.emulate(iPhone);
+                await page.reload();
                 // TODO: should use waitFor instead()???
                 await page.waitForNavigation({ timeout: WAIT_FOR_AUTO_REDIRECTION_TIMEOUT });
             } catch (err) {
