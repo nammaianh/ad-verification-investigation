@@ -9,8 +9,9 @@ const DeviceDescriptors = require('puppeteer/DeviceDescriptors');
 
 const EXEC_PATH_CANARY = '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary';
 const LAUNCHING_OPTIONS = {
-    executablePath: EXEC_PATH_CANARY,
-    headless: false
+    // executablePath: EXEC_PATH_CANARY,
+    // headless: false,
+    timeout: 120 * 1000
 };
 const DEFAULT_DEVICE_CODE_NAME = 'iPhone 6';
 const PATH_LOG = path.resolve('./logs');
