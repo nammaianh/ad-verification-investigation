@@ -11,6 +11,12 @@ const checkPopup = require('./common/checkPopup');
 
 events.EventEmitter.defaultMaxListeners = 0;
 
+const LOG_FILE = path.join(__dirname, '../logs/100.log');
+
+const availableFunctions = { checkAutoRedirection, checkPopup };
+// const functionToCall = 'checkAutoRedirection';
+const functionToCall = 'checkPopup';
+
 (async function run() {
 
     while (true) {
@@ -18,13 +24,16 @@ events.EventEmitter.defaultMaxListeners = 0;
             const promises = [];
 
             const now = Date.now();
-            for (let i = 0; i < 5; ++i) {
-                promises.push(launcher.launch().then(async ({ browser, page }) => {
-                    // return checkAutoRedirection(browser, page);
-                    const result = await checkPopup(browser, page);
-                    await browser.close();
-                    return result;
-                }));
+            for (let i = 0; i < 50; ++i) {
+                promises.push(
+                    launcher.launch().then(async ({ browser, page }) => {
+                        const result = await availableFunctions[functionToCall](browser, page);
+                        await browser.close();
+                        return result;
+                    }).catch(async err => {
+                        await logError(err);
+                    })
+                );
             }
 
             const results = await Promise.all(promises);
@@ -36,23 +45,23 @@ events.EventEmitter.defaultMaxListeners = 0;
                 `> Passed count: ${results.filter(result => result === true).length}\n` +
                 `> Failed count: ${results.filter(result => result === false).length}\n` +
                 `> Period: ${period / 1000} sec\n`;
-
-            // Write log to console
-            console.log(logMsg);
-
-            // Write log to file
-            appendFile(path.join(__dirname, '../logs/100.log'), logMsg);
+            console.log(logMsg);            // Write log to console
+            appendFile(LOG_FILE, logMsg);   // Write log to file
 
         } catch (err) {
-            const separator = `---------- ${new Date()} ----------\n`;
-            console.log(separator);
-            console.log(err);
-            await appendFile(LOG_FILE, separator);
-            await appendFile(LOG_FILE, err);
-            await appendFile(LOG_FILE, '\n');
+            await logError(err);
         }
     }
 
     process.exit();
 
 })();
+
+async function logError(err) {
+    const separator = `---------- ${new Date()} ----------\n`;
+    console.log(separator);
+    console.log(err);
+    await appendFile(LOG_FILE, separator);
+    await appendFile(LOG_FILE, err);
+    await appendFile(LOG_FILE, '\n');
+}
